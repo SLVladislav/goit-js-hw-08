@@ -7,10 +7,12 @@ formEl.addEventListener('submit', onFormSubmit);
 formEl.addEventListener('input', throttle(onFormData, 500));
 
 const formData = {};
+dataFromLocalStorage();
 
 function onFormData(evt) {
   formData[evt.target.name] = evt.target.value;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+  console.log(formData);
 }
 
 function onFormSubmit(evt) {
@@ -19,7 +21,7 @@ function onFormSubmit(evt) {
   evt.currentTarget.reset();
   localStorage.removeItem(STORAGE_KEY);
 }
-dataFromLocalStorage();
+
 function dataFromLocalStorage() {
   const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
   const email = document.querySelector('.feedback-form input');
@@ -28,4 +30,4 @@ function dataFromLocalStorage() {
     email.value = data.email;
     message.value = data.message;
   }
-};
+}
